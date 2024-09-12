@@ -7,11 +7,15 @@
             Random generator = new Random();
 
             int minInt, maxInt, dice1, dice2, decimalRound, minDecimalPrecision, maxDecimalPrecision;
-            double minDouble, maxDouble, minDecimal, maxDecimal, doubleRandomNumber, randomDecimal;
+            double minDouble, maxDouble, minDecimal, maxDecimal, doubleRandomNumber;
             bool done = false;
 
             minInt = 0;
+            minDecimal = 0;
+            minDouble = 0;
             maxInt = 0;
+            maxDecimal = 0;
+            maxDouble = 0;
             decimalRound = 0;
             minDecimalPrecision = 0;
             maxDecimalPrecision = 0;
@@ -161,13 +165,23 @@
                 }
             }
 
-            while (minInt > doubleRandomNumber && maxInt < doubleRandomNumber)
+            done = false;
+
+            while (!done)
             {
                 doubleRandomNumber = generator.Next(minInt, maxInt);
-                randomDecimal = doubleRandomNumber + generator.Next(0, 10);
+                doubleRandomNumber = doubleRandomNumber + generator.NextDouble();
+
+                doubleRandomNumber = Math.Round(doubleRandomNumber, decimalRound);
+
+                if (minDouble < doubleRandomNumber && maxDouble > doubleRandomNumber)
+                {
+                    done = true;
+                }
             }
+            Console.WriteLine();
             
-            Console.WriteLine("The number is: ");
+            Console.WriteLine("The number is: " + doubleRandomNumber);
         }
     }
 }
